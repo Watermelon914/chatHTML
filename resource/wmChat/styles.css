@@ -22,15 +22,6 @@ div.hidden{
     -webkit-animation: none;
 }
 
-div.flashy{
-    color: red;
-
-    font-weight: thin;
-
-    animation: glow 1s infinite alternate;
-    -webkit-animation: glow 1s infinite alternate;
-}
-
 div {
     color: white;
     font-family: Verdana, Geneva, sans-serif;
@@ -39,18 +30,6 @@ div {
     opacity: 1;
     animation: flickerAnimation 1s infinite;
     -webkit-animation: flickerAnimation 1s infinite;
-}
-
-@keyframes glow{
-    to {
-        text-shadow: 0 0 15px red;
-    }
-}
-
-@-webkit-keyframes glow{
-    to {
-        text-shadow: 0 0 15px red;
-    }
 }
 
 @keyframes flickerAnimation{
