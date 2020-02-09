@@ -76,6 +76,10 @@ wmChat.dTextEntry.OnKeyCodeTyped = function(self, code)
         return true
     end
 
+    if code == KEY_FIRST then
+        gui.HideGameUI()
+    end
+
     if code == KEY_ENTER then
         if string.Trim( self:GetText() ) != "" then
 			LocalPlayer():ConCommand("say \""..self:GetText().."\"")
