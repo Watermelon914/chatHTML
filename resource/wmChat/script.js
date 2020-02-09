@@ -4,7 +4,7 @@ function makeAllOpaque(){
     var allChatDivs = document.getElementsByName("chatObject");
     isOpaque = true;
 
-    for(i=0; i < allChatDivs.length; i++){
+    for(let i=0; i < allChatDivs.length; i++){
         allChatDivs[i].className = "visible";
     }
 }
@@ -13,7 +13,7 @@ function makeNormal(){
     var allChatDivs = document.getElementsByName("chatObject");
     isOpaque = false;
 
-    for(i=0; i < allChatDivs.length; i++){
+    for(let i=0; i < allChatDivs.length; i++){
         if (allChatDivs[i].getAttribute("data-faded") == 1){
             allChatDivs[i].className = "hidden";
         }
