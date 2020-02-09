@@ -27,6 +27,31 @@ wmChat.dFrameHtml:ShowCloseButton(false)
 
 wmChat.dFrame = vgui.Create("DFrame", wmChat.dFrameHtml)
 
+wmChat.dFrame.Paint = function(self, w, h)
+
+    local top = 24
+    local bottom = 32
+
+    local sideThickness = 2
+
+    // The top of the chatbox
+    draw.RoundedBoxEx(4, 0, 0, w, top, Color(50, 50, 50, 255), true, true, false, false)
+
+    // The bottom of the chatbox
+    draw.RoundedBoxEx(4, 0, h-bottom, w, bottom, Color(80, 80, 80, 220), false, false, true, true)
+
+    local totalHeightOfChat = h - (top+bottom)
+
+    // The sides of the chatbox
+    surface.SetDrawColor(Color(80, 80, 80, 220))
+    surface.DrawRect(0, top, sideThickness, totalHeightOfChat)
+    surface.DrawRect(w-sideThickness, top, sideThickness, totalHeightOfChat)
+
+    // The body of the chatbox
+    surface.SetDrawColor(Color(80, 80, 80, 150))
+    surface.DrawRect(sideThickness, top, w - sideThickness*2, totalHeightOfChat)
+end
+
 wmChat.dFrame:SetTitle("Watermelon's Chat Box")
 
 wmChat.dFrame:SetDraggable(false)
@@ -59,6 +84,15 @@ wmChat.dTextEntry.OnKeyCodeTyped = function(self, code)
         wmChat.Close()
         return true
     end
+end
+
+wmChat.dTextEntry:SetDrawBackground(false)
+
+wmChat.dTextEntry.Paint = function(self, w, h)
+    surface.SetDrawColor(Color(225, 225, 225, 220))
+    surface.DrawRect(0, 0, w, h)
+
+    derma.SkinHook( "Paint", "TextEntry", self, w, h )
 end
 
 wmChat.dHtml = vgui.Create("DHTML", wmChat.dFrameHtml)
