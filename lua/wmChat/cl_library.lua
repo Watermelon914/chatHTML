@@ -56,6 +56,8 @@ function chat.AddHTML(str) //Unsafe for user input. User input should be chat.Re
 
     wmChat.dHtml:RunJavascript("makeFade(\""..id.."\", "..wmChat.config.ChatTimeFadeout..")")
 
+    return wmChat.chatId
+
     wmChat.chatId = wmChat.chatId + 1
 end
 
@@ -112,6 +114,6 @@ function chat.AddText(...)
     Msg(unpack(consoleBuffer))
 
     htmlBuffer = htmlBuffer .. "</span>"
-    chat.AddHTML(htmlBuffer)
+    return chat.AddHTML(htmlBuffer)
 
 end
