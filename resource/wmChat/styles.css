@@ -1,0 +1,70 @@
+body {
+    border-color: #AAAAAA;
+    border-width: 5px;
+
+    overflow: hidden;
+
+}
+
+
+div.visible{
+    opacity: 1;
+    transition: opacity 250ms linear;
+    -webkit-transition: opacity 250ms linear;
+}
+
+div.hidden{
+    opacity: 0;
+    transition: opacity 250ms linear;
+    -webkit-transition: opacity 250ms linear;
+
+    animation: none;
+    -webkit-animation: none;
+}
+
+div.flashy{
+    color: red;
+
+    font-weight: thin;
+
+    animation: glow 1s infinite alternate;
+    -webkit-animation: glow 1s infinite alternate;
+}
+
+div {
+    color: white;
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 16px;
+
+    opacity: 1;
+    animation: flickerAnimation 1s infinite;
+    -webkit-animation: flickerAnimation 1s infinite;
+}
+
+@keyframes glow{
+    to {
+        text-shadow: 0 0 15px red;
+    }
+}
+
+@-webkit-keyframes glow{
+    to {
+        text-shadow: 0 0 15px red;
+    }
+}
+
+@keyframes flickerAnimation{
+    0% {opacity:0.99;}
+    50%{opacity:1;}
+    100%{opacity:0.99}
+}
+
+@-webkit-keyframes flickerAnimation{
+    0% {opacity:0.99;}
+    50%{opacity:1;}
+    100%{opacity:0.99}
+}
+
+::selection {
+    background-color: orange;
+}
