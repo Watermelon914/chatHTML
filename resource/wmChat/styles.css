@@ -1,10 +1,12 @@
 body {
     border-color: #AAAAAA;
     border-width: 5px;
+
+    overflow: hidden;
 }
 
 body.showScrollbar {
-    overflow: visible;
+    overflow: auto;
 }
 
 body.hideScrollbar {
