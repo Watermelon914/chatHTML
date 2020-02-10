@@ -1,6 +1,10 @@
 var isOpaque = false
 
 function makeAllOpaque(){
+    var body = document.getElementsByTagName("BODY")[0];
+
+    body.className = "showScrollbar"
+
     var allChatDivs = document.getElementsByName("chatObject");
     isOpaque = true;
 
@@ -10,6 +14,10 @@ function makeAllOpaque(){
 }
 
 function makeNormal(){
+    var body = document.getElementsByTagName("BODY")[0];
+
+    body.className = "hideScrollbar"
+
     var allChatDivs = document.getElementsByName("chatObject");
     isOpaque = false;
 

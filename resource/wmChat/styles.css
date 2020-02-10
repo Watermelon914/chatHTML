@@ -1,9 +1,31 @@
 body {
     border-color: #AAAAAA;
     border-width: 5px;
+}
 
+body.showScrollbar {
+    overflow: visible;
+}
+
+body.hideScrollbar {
     overflow: hidden;
+}
 
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 
@@ -23,6 +45,8 @@ div.hidden{
 }
 
 div {
+    word-wrap: break-word;
+
     color: white;
     font-family: Verdana, Geneva, sans-serif;
     font-size: 16px;

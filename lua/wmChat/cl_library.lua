@@ -2,12 +2,15 @@
 function wmChat.AddHTML(text)
     text = string.JavascriptSafe(text)
     wmChat.dHtml:RunJavascript( "document.getElementById(\"chat\").insertAdjacentHTML( \"beforeend\", \""..text.."\" );" )
-    wmChat.dHtml:RunJavascript("window.scrollTo(0,document.body.scrollHeight);")
+    if !wmChat.chatOpen then
+        wmChat.dHtml:RunJavascript("window.scrollTo(0,document.body.scrollHeight);")
+    end
 end
 
 function wmChat.Close()
 
     wmChat.dHtml:RunJavascript("makeNormal(); clearSelection();")
+    wmChat.dHtml:RunJavascript("window.scrollTo(0,document.body.scrollHeight);")
 
     wmChat.chatOpen = false
 
