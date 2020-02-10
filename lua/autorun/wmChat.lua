@@ -28,5 +28,6 @@ else
 end
 
 include("anonyChat/anonyChat.lua")
+include("chatLink/chatLink.lua")
 
 print("Watermelon's HTML Chat Script")

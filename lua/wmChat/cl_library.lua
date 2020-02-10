@@ -41,7 +41,7 @@ end
 local function rgbToHex(col)
     local r, g, b = bit.tohex(col.r, 2), bit.tohex(col.g, 2), bit.tohex(col.b, 2)
 
-    return r .. g .. b
+    return tostring(r .. g .. b)
 end
 
 function chat.RemoveHTMLTags(str)
@@ -69,7 +69,10 @@ function chat.AddText(...)
     local consoleBuffer = {}
     local args = {...}
     for _, arg in pairs(args) do
-        if IsColor(arg) then
+        local suppress, buffer = hook.Run("wmChat.ChatTextAdd", arg)
+        if suppress then
+            htmlBuffer = htmlBuffer .. buffer
+        elseif IsColor(arg) then
             local hexCol = rgbToHex(arg)
 
             htmlBuffer = htmlBuffer .. "</span><span style=\"color: #"..hexCol..";\">"
