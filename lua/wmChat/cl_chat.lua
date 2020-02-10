@@ -90,6 +90,14 @@ wmChat.dTextEntry.OnKeyCodeTyped = function(self, code)
     end
 end
 
+
+wmChat.dTextEntry.AllowInput = function(self, char)
+    local value = self:GetValue()
+    if #value > 255 then
+        return true
+    end
+end
+
 wmChat.dTextEntry:SetDrawBackground(false)
 
 wmChat.dTextEntry.Paint = function(self, w, h)
