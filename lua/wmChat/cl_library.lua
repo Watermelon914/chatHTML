@@ -13,6 +13,8 @@ function wmChat.Close()
     wmChat.dHtml:RunJavascript("makeNormal(); clearSelection();")
 
     timer.Simple(0, function()
+        if !IsValid(wmChat.dHtml) then return end
+
         local id = chat.AddHTML("hello")
         wmChat.chatId = wmChat.chatId - 1
 
