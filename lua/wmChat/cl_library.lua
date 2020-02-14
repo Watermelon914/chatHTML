@@ -63,7 +63,7 @@ end
 wmChat.chatId = wmChat.chatId or 1
 function chat.AddHTML(str) //Unsafe for user input. User input should be chat.RemoveHTMLTags
     local id = tostring(wmChat.chatId)
-    print(id)
+
     wmChat.AddHTML("<div name=\"chatObject\" id=\""..id.."\" class=\"visible\" data-faded=0>"..str.."</div>")
 
     wmChat.dHtml:RunJavascript("makeFade(\""..id.."\", "..wmChat.config.ChatTimeFadeout..")")

@@ -31,6 +31,9 @@ function makeNormal(){
 function makeFade(elementId, time){
     setTimeout(function(){
         var textToFade = document.getElementById(elementId);
+
+        if (textToFade == null) return;
+
         textToFade.setAttribute("data-faded", 1);
 
         if (isOpaque === false){
