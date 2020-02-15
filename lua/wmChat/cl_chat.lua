@@ -93,7 +93,7 @@ end
 
 wmChat.dTextEntry.AllowInput = function(self, char)
     local value = self:GetValue()
-    if #value > 255 then
+    if #value >= 255 then
         return true
     end
 end
