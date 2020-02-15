@@ -1,10 +1,17 @@
 
-function wmChat.AddHTML(text)
+function wmChat.AddHTML(text, id)
     text = string.JavascriptSafe(text)
+
     wmChat.dHtml:RunJavascript( "document.getElementById(\"chat\").insertAdjacentHTML( \"beforeend\", \""..text.."\" );" )
     if !wmChat.chatOpen then
-        wmChat.dHtml:RunJavascript("window.scrollTo(0,document.body.scrollHeight);")
+        wmChat.ScrollToBottom()
+    else
+        wmChat.dHtml:RunJavascript("scrollToBottomIfPossible("..id..");")
     end
+end
+
+function wmChat.ScrollToBottom()
+    wmChat.dHtml:RunJavascript("window.scrollTo(0,document.body.scrollHeight);")
 end
 
 function wmChat.Close()
@@ -15,7 +22,7 @@ function wmChat.Close()
     timer.Simple(0, function()
         if !IsValid(wmChat.dHtml) then return end
 
-        local id = chat.AddHTML("hello")
+        local id = chat.AddHTML("null", true)
         wmChat.chatId = wmChat.chatId - 1
 
         wmChat.dHtml:RunJavascript("deleteElement(\""..tostring(id).."\");")
@@ -61,12 +68,14 @@ function chat.RemoveHTMLTags(str)
 end
 
 wmChat.chatId = wmChat.chatId or 1
-function chat.AddHTML(str) //Unsafe for user input. User input should be chat.RemoveHTMLTags
+function chat.AddHTML(str, dontFade) //Unsafe for user input. User input should be chat.RemoveHTMLTags
     local id = tostring(wmChat.chatId)
 
-    wmChat.AddHTML("<div name=\"chatObject\" id=\""..id.."\" class=\"visible\" data-faded=0>"..str.."</div>")
+    wmChat.AddHTML("<div name=\"chatObject\" id=\""..id.."\" class=\"visible\" data-faded=0>"..str.."</div>", id)
 
-    wmChat.dHtml:RunJavascript("makeFade(\""..id.."\", "..wmChat.config.ChatTimeFadeout..")")
+    if !dontFade then 
+        wmChat.dHtml:RunJavascript("makeFade(\""..id.."\", "..wmChat.config.ChatTimeFadeout..")")
+    end
 
     local oldValue = wmChat.chatId
 

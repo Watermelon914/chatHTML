@@ -51,3 +51,14 @@ function deleteElement(elementId) {
     var element = document.getElementById(elementId);
     element.parentNode.removeChild(element);
 }
+
+function scrollToBottomIfPossible(elementId){
+    var element = document.getElementById(elementId);
+
+    if ( 
+        ( ( document.body.scrollHeight - document.body.scrollTop) - element.offsetHeight === document.body.clientHeight )
+       )
+        {
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+}
