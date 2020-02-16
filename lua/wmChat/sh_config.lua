@@ -19,3 +19,5 @@ CONFIG.ConsoleMessageServer = {
 }
 
 CONFIG.ServerMessageColor = Color(0, 128, 255)
+
+CONFIG.MaxMessagesInChatBox = 30

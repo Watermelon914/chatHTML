@@ -29,5 +29,6 @@ end
 
 include("anonyChat/anonyChat.lua")
 include("chatLink/chatLink.lua")
+include("chatImage/chatImage.lua")
 
 print("Watermelon's HTML Chat Script")

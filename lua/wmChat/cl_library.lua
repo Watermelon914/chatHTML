@@ -68,14 +68,19 @@ function chat.RemoveHTMLTags(str)
     return wmChat:MakeSafe(str)
 end
 
-wmChat.chatId = wmChat.chatId or 1
-function chat.AddHTML(str, dontFade) //Unsafe for user input. User input should be chat.RemoveHTMLTags
+wmChat.chatId = 1
+function chat.AddHTML(str, isNull) //Unsafe for user input. User input should be chat.RemoveHTMLTags
     local id = tostring(wmChat.chatId)
+
+    local CONFIG = wmChat.config 
+    if !isNull and wmChat.chatId > CONFIG.MaxMessagesInChatBox then
+        wmChat.dHtml:RunJavascript("deleteElement(\""..tostring(wmChat.chatId - CONFIG.MaxMessagesInChatBox).."\");")
+    end
 
     AddHTML("<div name=\"chatObject\" id=\""..id.."\" class=\"visible\" data-faded=0>"..str.."</div>", id)
 
-    if !dontFade then 
-        wmChat.dHtml:RunJavascript("makeFade(\""..id.."\", "..wmChat.config.ChatTimeFadeout..")")
+    if !isNull then 
+        wmChat.dHtml:RunJavascript("makeFade(\""..id.."\", "..CONFIG.ChatTimeFadeout..")")
     end
 
     local oldValue = wmChat.chatId
@@ -91,9 +96,12 @@ function chat.AddText(...)
     local consoleBuffer = {}
     local args = {...}
     for _, arg in pairs(args) do
-        local suppress, buffer = hook.Run("wmChat.ChatTextAdd", arg)
+        local suppress, overridenHtmlBuffer, overridenConsoleBuffer = hook.Run("wmChat.ChatTextAdd", arg)
         if suppress then
-            htmlBuffer = htmlBuffer .. buffer
+            
+            htmlBuffer = htmlBuffer .. overridenHtmlBuffer
+            table.insert(consoleBuffer, overridenConsoleBuffer)
+
         elseif IsColor(arg) then
             local hexCol = rgbToHex(arg)
 
