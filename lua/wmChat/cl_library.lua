@@ -1,8 +1,9 @@
 
-function wmChat.AddHTML(text, id)
+local function AddHTML(text, id)
     text = string.JavascriptSafe(text)
 
     wmChat.dHtml:RunJavascript( "document.getElementById(\"chat\").insertAdjacentHTML( \"beforeend\", \""..text.."\" );" )
+
     if !wmChat.chatOpen then
         wmChat.ScrollToBottom()
     else
@@ -71,7 +72,7 @@ wmChat.chatId = wmChat.chatId or 1
 function chat.AddHTML(str, dontFade) //Unsafe for user input. User input should be chat.RemoveHTMLTags
     local id = tostring(wmChat.chatId)
 
-    wmChat.AddHTML("<div name=\"chatObject\" id=\""..id.."\" class=\"visible\" data-faded=0>"..str.."</div>", id)
+    AddHTML("<div name=\"chatObject\" id=\""..id.."\" class=\"visible\" data-faded=0>"..str.."</div>", id)
 
     if !dontFade then 
         wmChat.dHtml:RunJavascript("makeFade(\""..id.."\", "..wmChat.config.ChatTimeFadeout..")")
@@ -128,7 +129,6 @@ function chat.AddText(...)
 
             htmlBuffer = htmlBuffer .. arg:GetName()
 
-            table.insert(consoleBuffer, col)
             table.insert(consoleBuffer, arg)
         end
 
@@ -137,7 +137,9 @@ function chat.AddText(...)
 
     table.insert(consoleBuffer, "\n")
 
-    Msg(unpack(consoleBuffer))
+    local MessageConfig = wmChat.config.ConsoleMessageChat
+
+    MsgC(MessageConfig.head, MessageConfig.name .. " ", MessageConfig.body, unpack(consoleBuffer))
 
     htmlBuffer = htmlBuffer .. "</span>"
     return chat.AddHTML(htmlBuffer)

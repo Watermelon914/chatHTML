@@ -154,3 +154,17 @@ hook.Add("PlayerBindPress", "wmOverrideChatBind", function(ply, bind, pressed)
     return true
 
 end)
+
+function GM:ChatText( index, name, text, type )
+    local MessageConfig = wmChat.config.ConsoleMessageServer
+
+    MsgC(MessageConfig.head, MessageConfig.name .. " ", MessageConfig.body, text .. "\n")
+ 
+    local ServerMessageMetadata = {
+        ["font-weight"] = "bold", 
+        ["color"] = wmChat.config.ServerMessageColor,
+    }
+
+    chat.AddText(ServerMessageMetadata, text)
+
+end
