@@ -114,10 +114,11 @@ end
 
 wmChat.dHtml:SetAllowLua(true)
 wmChat.dHtml:Dock(TOP)
-wmChat.dHtml:SetSize(length, height*0.8)
+wmChat.dHtml:SetSize(length, height-56)
 wmChat.dHtml:OpenURL("asset://garrysmod/resource/wmChat/chat.html")
 
 wmChat.chatOpen = false
+
 
 function wmChat.dFrame:Think()
     wmChat.dFrame:MoveToBefore(wmChat.dHtml)
