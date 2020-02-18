@@ -1,3 +1,9 @@
+
+:root {    
+    --colorFrom: white;
+    --colorTo: black;
+}
+
 body {
     border-color: #AAAAAA;
     border-width: 5px;

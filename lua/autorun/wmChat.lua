@@ -7,7 +7,7 @@ function wmChat:MakeSafe(text)
     return text
 end
 
-include("wmChat/sh_config.lua")
+include("wmChat/core/sh_config.lua")
 
 if SERVER then
 
@@ -15,20 +15,41 @@ if SERVER then
     resource.AddSingleFile("resource/wmChat/chat.html")
     resource.AddSingleFile("resource/wmChat/script.js")
 
-    AddCSLuaFile("wmChat/cl_library.lua")
-    AddCSLuaFile("wmChat/cl_chat.lua")
+    AddCSLuaFile("wmChat/core/cl_library.lua")
+    AddCSLuaFile("wmChat/core/cl_chat.lua")
 
-    include("wmChat/sv_chat.lua")
+    include("wmChat/core/sv_chat.lua")
 
 else
 
-    include("wmChat/cl_library.lua")
-    include("wmChat/cl_chat.lua")
+    include("wmChat/core/cl_library.lua")
+    include("wmChat/core/cl_chat.lua")
+
+
 
 end
 
-include("anonyChat/anonyChat.lua")
-include("chatLink/chatLink.lua")
-include("chatImage/chatImage.lua")
+local function LoadModules()
+    local _, modules = file.Find("wmChat/modules/*", "LUA")
+
+    for _, mod in pairs(modules) do // Loads in modules
+        include("wmChat/modules/"..mod.."/"..mod..".lua")
+    end
+end
+
+if wmChat.ChatLoaded or SERVER then 
+
+    LoadModules()
+
+elseif CLIENT then
+    timer.Create("wmChat.LoadChat", 1, 0, function()
+        include("wmChat/core/cl_chat.lua")
+
+        if wmChat.ChatLoaded then 
+            LoadModules()
+            timer.Remove("wmChat.LoadChat")
+        end
+    end)
+end
 
 print("Watermelon's HTML Chat Script")

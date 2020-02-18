@@ -11,11 +11,10 @@ local CONFIG = wmChat.config
 wmChat.dFrameHtml = vgui.Create("DFrame")
 
 if !IsValid(wmChat.dFrameHtml) then
-    timer.Simple(2, function()
-        include("wmChat/cl_chat.lua")
-    end)
+    wmChat.ChatLoaded = false
     return
 end
+wmChat.ChatLoaded = true
 
 wmChat.dFrameHtml.Paint = function(self) end
 
