@@ -16,7 +16,6 @@ CHANNEL.Styles = { // Styles to implement when using messageSent
 CHANNEL.canHearMessage = function(self, sender, listener, msg) return true end // Run a function for whether the player can hear this message or not
 CHANNEL.shouldSend = function(self, ply, msg) return true end // Run a function for whether a message should go to this chat or not
 
-    
 CHANNEL.messageSent = function(self, ply, msg) return msg end
 
 local extensionNames = {
@@ -26,11 +25,16 @@ local extensionNames = {
     ["png"] = true,
 }
 
-CHANNEL.messageReceivedByPlayer = function(self, styles, msg, playerName, args, chats) //This is called when the client receives the messages from another player
+local whitelistedSites = { // No need to add it yet. Maybe in the future
+    ["https://cdn.discordapp.com/attachments/"] = true,
+}
+
+CHANNEL.messageReceivedByPlayer = function(self, ply, msg, args, chats) //This is called when the client receives the messages from another player
     local tab = {}
+    local styles = table.Copy(self.Styles) 
 
     table.insert(tab, styles.bold)
-    table.insert(tab, playerName)
+    table.insert(tab, ply:GetName())
 
     table.insert(tab, ": ")
     table.insert(tab, styles.normal)
@@ -41,7 +45,7 @@ CHANNEL.messageReceivedByPlayer = function(self, styles, msg, playerName, args, 
         local strSplitted = string.Split(str, ".")
         local extensionName = strSplitted[#strSplitted]
         if extensionNames[extensionName] and (string.sub(str, 1, 7) == "http://" or string.sub(str, 1, 8) == "https://") then
-            table.insert(tab, {image={source=str, scaleToFit=true}, ["vertical-align"]="middle"})
+            table.insert(tab, {image={source=str, scaleToFit=50}, ["vertical-align"]="middle"})
         else 
             table.insert(tab, str .. " ")
         end
@@ -50,13 +54,14 @@ CHANNEL.messageReceivedByPlayer = function(self, styles, msg, playerName, args, 
     return tab
 end
 
-CHANNEL.messageReceived = function(self, styles, msg, entityName, args, chats) //This is called when a client receives a message from a non-player entity (e.g. the world) or a null entity
+CHANNEL.messageReceived = function(self, msg, args, chats) //This is called when a client receives a message from a non-player entity (e.g. the world) or a null entity
     local tab = {}
+    local styles = table.Copy(self.Styles)
 
     table.insert(tab, styles.bold)
     
-    if entityName then 
-        table.insert(tab, entityName..": ")
+    if args[1] then 
+        table.insert(tab, args[1]..": ")
     end
 
     table.insert(tab, msg)
@@ -64,5 +69,5 @@ CHANNEL.messageReceived = function(self, styles, msg, entityName, args, chats) /
     return tab
 end
 
-CHANNEL.priority = 1 //This'll prevent it from sending to other chats if this value is higher than other chat values. Keep at 0 if you don't know what you're doing
+CHANNEL.priority = -5 //This effectively disables it
 CHANNEL.orderPriority = 0
