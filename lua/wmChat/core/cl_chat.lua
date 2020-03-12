@@ -51,7 +51,7 @@ wmChat.dFrame.Paint = function(self, w, h)
     surface.DrawRect(sideThickness, top, w - sideThickness*2, totalHeightOfChat)
 end
 
-wmChat.dFrame:SetTitle("Watermelon's Chat Box")
+wmChat.dFrame:SetTitle(CONFIG.ChatBoxTitle)
 
 wmChat.dFrame:SetDraggable(false)
 wmChat.dFrame:SetDeleteOnClose(false)
