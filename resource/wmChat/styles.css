@@ -62,7 +62,7 @@ div {
     -webkit-animation: flickerAnimation 1s infinite;
 }
 
-@keyframes flickerAnimation{
+@keyframes flickerAnimation{ /* This is used to prevent a black outline on the text itself, due to the html version that gmod uses  */
     0% {opacity:0.99;}
     50%{opacity:1;}
     100%{opacity:0.99}
