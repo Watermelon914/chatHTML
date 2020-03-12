@@ -26,7 +26,7 @@ hook.Add("wmChat.ChatTextAdd", "chatLink_link", function(arg)
         end
 
         local argumentBuffer = {} 
-        for _, argument in pairs(arg.link["arguments"]) do
+        for _, argument in ipairs(arg.link["arguments"]) do
 
             if type(argument) == "string" then
                 argument = "\\\"" .. argument .. "\\\""
