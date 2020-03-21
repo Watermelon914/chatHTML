@@ -149,3 +149,5 @@ function chat.SendChannel(className, text, name)
         anonyChatSendMessage(nil, {chat.GetChat(className)}, text, nil, {name})
     end
 end
+
+concommand.Remove("say")
