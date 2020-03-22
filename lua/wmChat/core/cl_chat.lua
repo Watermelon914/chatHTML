@@ -26,12 +26,12 @@ wmChat.dFrameHtml:ShowCloseButton(false)
 
 wmChat.dFrame = vgui.Create("DFrame", wmChat.dFrameHtml)
 
+local top = 24
+local bottom = 32
+
+local sideThickness = 2
+
 wmChat.dFrame.Paint = function(self, w, h)
-
-    local top = 24
-    local bottom = 32
-
-    local sideThickness = 2
 
     // The top of the chatbox
     draw.RoundedBoxEx(4, 0, 0, w, top, Color(50, 50, 50, 255), true, true, false, false)
@@ -114,7 +114,7 @@ end
 
 wmChat.dHtml:SetAllowLua(true)
 wmChat.dHtml:Dock(TOP)
-wmChat.dHtml:SetSize(length, height-56)
+wmChat.dHtml:SetSize(length, height-(top+bottom+10))
 wmChat.dHtml:OpenURL("asset://garrysmod/html/chat.html")
 
 wmChat.chatOpen = false

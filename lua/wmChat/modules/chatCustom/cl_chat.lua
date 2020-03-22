@@ -68,7 +68,7 @@ function wmChat.dFrameHtml:Think()
 
         self:SetSize(newSizeX, newSizeY)
         wmChat.dFrame:SetSize(newSizeX, newSizeY)
-        wmChat.dHtml:SetSize(newSizeX, newSizeY-56)
+        wmChat.dHtml:SetSize(newSizeX, newSizeY-66)
     end
 
     if !input.IsMouseDown(MOUSE_FIRST) then 
@@ -107,7 +107,7 @@ end, function(cmd, args)
 
     for font, fontFull in pairs(CONFIG.Fonts) do
 
-        if string.find(string.lower(fontFull), argsLower) then
+        if string.find(string.lower(fontFull), argsLower, 1, true) then
             table.insert(fonts, cmd.." "..fontFull)
         end
 

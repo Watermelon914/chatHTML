@@ -77,6 +77,12 @@ local function anonyChatSendMessage(sender, chats, text, receivers, args) // Rec
     end
 end
 
+hook.Add("PlayerSay", "wmChat.CancelMessages", function(sender, text, bTeam, isWmChat)
+    if not isWmChat then 
+        return ""
+    end
+end)
+
 function anony_say(sender, cmd, args, text)
     if string.sub(text, 1, 1) == "\"" then
         text = string.sub(text, 2, #text-1)
@@ -95,7 +101,11 @@ function anony_say(sender, cmd, args, text)
 
     if !chats then return end
 
-    local text, channels = hook.Run("PlayerSay", sender, text, false) or text
+    local tempText = text
+
+    local text, channels = hook.Run("PlayerSay", sender, text, false, true) or text
+
+    if text == "" then return end
 
     if istable(channels) then
         chats = channels or chats
@@ -117,6 +127,7 @@ function anony_say(sender, cmd, args, text)
 end
 
 concommand.Add("anony_say", anony_say, nil, nil, FCVAR_PRINTABLEONLY)
+concommand.Add("say", anony_say, nil, nil, FCVAR_PRINTABLEONLY)
 
 local pMeta = FindMetaTable("Player")
 
@@ -149,5 +160,3 @@ function chat.SendChannel(className, text, name)
         anonyChatSendMessage(nil, {chat.GetChat(className)}, text, nil, {name})
     end
 end
-
-concommand.Remove("say")
