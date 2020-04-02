@@ -43,7 +43,7 @@ local function anonyChatSendMessage(sender, chats, text, receivers, args) // Rec
 
             elseif IsValid(receivers) and receivers:IsPlayer() then // If they sent only one person, it'll assist them here
                 if players[receivers:EntIndex()] then
-                    players = receivers
+                    players = {receivers}
                 end
             end
         end
@@ -63,14 +63,10 @@ local function anonyChatSendMessage(sender, chats, text, receivers, args) // Rec
                 net.WriteString(channel, 16)
             end
 
-            if args then
-                net.WriteUInt(#args, 16)
-                for _, argument in pairs(args) do
-                    net.WriteString(argument)
-                end
-            else
-                net.WriteUInt(0, 16)
-            end
+            local compressed = util.Compress(util.TableToJSON(args))
+
+            net.WriteUInt(#compressed, 16)
+            net.WriteData(compressed, #compressed)
 
         net.Send(orderedPlayerList)
 
@@ -143,7 +139,7 @@ function pMeta:ChatPrint(text, channels)
     channels = channels or {chat.GetChat("channel_default")}
 
 
-    anonyChatSendMessage(nil, channels, text)
+    anonyChatSendMessage(nil, channels, text, self)
 end
 
 function chat.SendChannel(className, text, name)

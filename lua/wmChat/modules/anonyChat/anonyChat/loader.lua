@@ -72,6 +72,6 @@ for _, file in pairs(channels) do --Goes through the item folder and iterates th
 
 end
 
-CHANNEL = nil
+CHANNEL = {}
 
 wmChat.anonyChat.allFilesLoaded = true

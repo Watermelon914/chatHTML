@@ -62,11 +62,7 @@ net.Receive("anonyChatSendMessage", function(len)
         table.insert(chats, chat.GetChat(net.ReadString()))
     end
 
-    local argsCount = net.ReadUInt(16)
-    local args = {}
-    for i=1, argsCount do
-        table.insert(args, net.ReadString())
-    end
+    local args = util.JSONToTable(util.Decompress(net.ReadData(net.ReadUInt(16))))
 
     local tab = {}
     
