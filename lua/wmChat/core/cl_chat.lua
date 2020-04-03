@@ -115,7 +115,7 @@ end
 wmChat.dHtml:SetAllowLua(true)
 wmChat.dHtml:Dock(TOP)
 wmChat.dHtml:SetSize(length, height-(top+bottom+10))
-wmChat.dHtml:OpenURL("asset://garrysmod/html/chat.html")
+wmChat.dHtml:OpenURL("asset://garrysmod/lua/wmChat/html/chat.lua")
 
 wmChat.chatOpen = false
 

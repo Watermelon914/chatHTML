@@ -14,6 +14,7 @@ local CONFIG = wmChat.anonyChat.config
 
 local function anonyChatSendMessage(sender, chats, text, receivers, args) // Receivers and args is optional
     local channels = {}
+    args = args or {}
 
     for _, chatObject in pairs(chats) do
         table.insert(channels, chatObject.FileName)

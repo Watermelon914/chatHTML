@@ -11,9 +11,9 @@ include("wmChat/core/sh_config.lua")
 
 if SERVER then
 
-    resource.AddSingleFile("html/chat.html")
-    resource.AddSingleFile("html/js/chatScript.js")
-    resource.AddSingleFile("html/css/chatStyles.css")
+    AddCSLuaFile("wmChat/html/chat.lua")
+    AddCSLuaFile("wmChat/html/js/chatScript.lua")
+    AddCSLuaFile("wmChat/html/css/chatStyles.lua")
 
     AddCSLuaFile("wmChat/core/cl_library.lua")
     AddCSLuaFile("wmChat/core/cl_chat.lua")
